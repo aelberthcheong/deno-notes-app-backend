@@ -1,0 +1,27 @@
+{
+    "tasks": {
+        "dev": "deno run --allow-net --allow-env --watch main.ts",
+        "prod": "NODE_ENV=production deno run --allow-net --allow-env main.ts"
+    },
+    "imports": {
+        "@oak/oak": "jsr:@oak/oak@^17.2.0",
+        "@sitnik/nanoid": "jsr:@sitnik/nanoid@^5.1.5",
+        "@std/assert": "jsr:@std/assert@1"
+    },
+    "lint": {
+        "include": ["*.ts"],
+        "rules": {
+            "tags": ["recommended"]
+        }
+    },
+    "fmt": {
+        "include": ["*.ts", "*.json", "*.jsonc"],
+        "options": {
+            "indentWidth": 4,
+            "singleQuote": false,
+            "useTabs": false,
+            "lineWidth": 80,
+            "semiColons": true
+        }
+    }
+}
