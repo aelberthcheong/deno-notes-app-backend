@@ -20,4 +20,6 @@ async function init() {
     await app.listen({ port: PORT, hostname: HOST });
 }
 
-await init();
+if (import.meta.main) {
+    await init();
+}
