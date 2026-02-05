@@ -1,5 +1,5 @@
 # deno-notes-app-backend
-simple backend untuk note app menggunakan [deno@2.6.8](https://deno.com) dan [oak@17.2.0](https://oakserver.org/).
+Simple backend untuk note app menggunakan [deno@2.6.8](https://deno.com) dan [oak@17.2.0](https://oakserver.org/).
 
 ```bash
 # clone repo
@@ -13,4 +13,4 @@ deno task dev
 ```
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Proyek ini dilisensikan di bawah Lisensi MIT - lihat [LICENSE](LICENSE) untuk detail.
