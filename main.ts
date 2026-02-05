@@ -1,6 +1,7 @@
 import { Application } from "@oak/oak";
 import { router } from "./routes.ts";
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
+import { blue, brightYellow } from "https://jsr.io/@std/fmt/1.0.9/colors.ts";
 
 async function init() {
     const app = new Application();
@@ -15,7 +16,7 @@ async function init() {
         : "0.0.0.0";
 
     console.log(
-        `\x1b[1;34mServer berjalan pada \x1b[0;93mhttp://${HOST}:${PORT}\x1b[0m`,
+        blue(`Server berjalan pada ${brightYellow(`http://${HOST}:${PORT}`)}`),
     );
     await app.listen({ port: PORT, hostname: HOST });
 }
