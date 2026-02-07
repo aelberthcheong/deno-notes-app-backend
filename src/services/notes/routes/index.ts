@@ -5,7 +5,7 @@ import {
     editNoteById,
     getNoteById,
     getNotes,
-} from "./controller.ts";
+} from "../controller/note-controller.ts";
 
 export const routes = Router();
 

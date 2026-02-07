@@ -1,5 +1,5 @@
 import { nanoid } from "@sitnik/nanoid";
-import { type Note, notes } from "./notes.ts";
+import { type Note, notes } from "../notes.ts";
 import { Request, Response } from "express";
 
 export function createNote(
@@ -28,7 +28,7 @@ export function getNotes(
 ): void {
     res.status(200).json({
         status: "success",
-        data: { ...Object.fromEntries(notes) },
+        data: { notes: [...notes.values()] }, // seharusnya O(n)
     });
 }
 
@@ -48,7 +48,7 @@ export function getNoteById(
         res.status(200).json({
             status: "success",
             message: "Catatan berhasil ditemukan",
-            data: { ...Object.fromEntries(notes) },
+            data: { note: note },
         });
     }
 }
@@ -87,7 +87,7 @@ export function deleteNoteById(req: Request, res: Response): void {
             message: "Gagal memperbarui catatan. Id tidak ditemukan",
         });
     } else {
-        notes.delete(id[0]);
+        notes.delete(id as string);
         res.status(200).json({
             status: "success",
             message: "Catatan berhasil dihapus",
