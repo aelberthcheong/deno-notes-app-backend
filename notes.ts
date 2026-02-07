@@ -7,4 +7,4 @@ export type Note = {
     updatedAt: string;
 };
 
-export const notes: Note[] = [];
+export const notes = new Map<string, Note>();
