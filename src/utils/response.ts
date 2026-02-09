@@ -8,7 +8,7 @@ export default function response(
 ) {
     return res.status(statusCode).json({
         code: statusCode,
-        status: statusCode < 400 ? "success" : "failed",
+        status: statusCode >= 400 ? "failed" : "success",
         message: msg,
         data: data,
     }).end();

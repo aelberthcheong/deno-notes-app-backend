@@ -21,13 +21,17 @@ export function createNote(
 }
 
 export function getNotes(
-    _req: Request,
+    req: Request,
     res: Response,
 ) {
-    res.status(200).json({
-        status: "success",
-        data: { notes: [...notes.values()] }, // seharusnya O(n)
-    });
+    const { title = "" } = req.query;
+
+    if (title !== "") {
+        const matchedNote = [...notes.values()].filter((n) =>
+            n.title === title
+        );
+        return response(res, 200, "success", { notes: matchedNote });
+    }
 }
 
 export function getNoteById(
@@ -82,8 +86,8 @@ export function deleteNoteById(
         return next(
             new NotFoundError("Catatan tidak ditemukan"),
         );
-    } else {
-        notes.delete(id as string);
-        return response(res, 200, "Catatan berhasil dihapus");
     }
+
+    notes.delete(id as string);
+    return response(res, 200, "Catatan berhasil dihapus");
 }
