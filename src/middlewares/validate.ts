@@ -10,7 +10,7 @@ export function validate(schema: Joi.ObjectSchema) {
         });
 
         if (error) return next(error);
-        req.body = value;
+        req.validatedBody = value;
         next();
     };
 }
@@ -24,7 +24,7 @@ export function validateQuery(schema: Joi.ObjectSchema) {
         });
 
         if (error) return next(error);
-        req.query = value;
+        req.validatedQuery = value;
         next();
     };
 }

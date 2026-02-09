@@ -1,5 +1,6 @@
 declare namespace Express {
     export interface Request {
-        validated?: any;
+        validatedBody?: any;
+        validatedQuery?: any;
     }
 }

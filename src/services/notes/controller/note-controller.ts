@@ -8,7 +8,7 @@ export function createNote(
     req: Request,
     res: Response,
 ) {
-    const { title = "untitled", tags, body } = req.body;
+    const { title = "untitled", tags, body } = req.validatedBody;
     const id = nanoid(16);
 
     const createdAt = new Date().toISOString();
@@ -24,7 +24,7 @@ export function getNotes(
     req: Request,
     res: Response,
 ) {
-    const { title = "" } = req.query;
+    const { title = "" } = req.validatedQuery;
 
     if (title !== "") {
         const matchedNote = [...notes.values()].filter((n) =>
@@ -59,7 +59,7 @@ export function editNoteById(
     const { id } = req.params;
     const note = notes.get(id as string);
 
-    const { title, tags, body } = req.body;
+    const { title, tags, body } = req.validatedBody;
 
     if (!note) {
         return next(new NotFoundError("Catatan tidak ditemukan"));
