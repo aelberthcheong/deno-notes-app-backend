@@ -1,4 +1,4 @@
-import server from "./server/index.ts";
+import server from "@/server/index.ts";
 import { blue, brightYellow } from "@std/fmt/colors";
 
 function init() {

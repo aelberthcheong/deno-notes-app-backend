@@ -1,8 +1,8 @@
 import { nanoid } from "@sitnik/nanoid";
-import { type Note, notes } from "../notes.ts";
+import { type Note, notes } from "@/services/notes/notes.ts";
 import { NextFunction, Request, Response } from "express";
-import { NotFoundError } from "../../../exceptions/index.ts";
-import response from "../../../utils/response.ts";
+import { NotFoundError } from "@/exceptions/index.ts";
+import response from "@/utils/response.ts";
 
 export function createNote(
     req: Request,

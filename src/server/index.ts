@@ -1,6 +1,6 @@
 import express from "express";
-import routes from "../routes/index.ts";
-import errorHandler from "../middlewares/error.ts";
+import routes from "@/routes/index.ts";
+import errorHandler from "@/middlewares/error.ts";
 import cors from "cors";
 
 const app = express();

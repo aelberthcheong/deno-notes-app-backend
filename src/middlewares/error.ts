@@ -1,5 +1,5 @@
-import response from "../utils/response.ts";
-import { ClientError } from "../exceptions/index.ts";
+import response from "@/utils/response.ts";
+import { ClientError } from "@/exceptions/index.ts";
 import { NextFunction, Request, Response } from "express";
 
 export default function errorHandler(

@@ -10,7 +10,10 @@
         "@types/express": "npm:@types/express@^5.0.6",
         "cors": "npm:cors@^2.8.6",
         "express": "npm:express@^5.2.1",
-        "joi": "npm:joi@^18.0.2"
+        "joi": "npm:joi@^18.0.2",
+
+        // import path alias
+        "@/": "./src/"
     },
     "lint": {
         "include": ["*.ts"],
