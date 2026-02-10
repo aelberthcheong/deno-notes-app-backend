@@ -24,14 +24,17 @@ export function getNotes(
     req: Request,
     res: Response,
 ) {
-    const { title = "" } = req.validatedQuery;
+    const { title } = req.validatedQuery ?? {};
 
-    if (title !== "") {
-        const matchedNote = [...notes.values()].filter((n) =>
-            n.title === title
-        );
-        return response(res, 200, "success", { notes: matchedNote });
+    let result = [...notes.values()];
+
+    if (title) {
+        result = result.filter((n) => n.title === title);
     }
+
+    return response(res, 200, "Catatan berhasil ditampilkan", {
+        notes: result,
+    });
 }
 
 export function getNoteById(
