@@ -18,5 +18,9 @@ export const routes = Router();
 routes.post("/notes", validate(notePayloadSchema), createNote);
 routes.get("/notes", validateQuery(noteQuerySchema), getNotes);
 routes.get("/notes/:id", getNoteById);
-routes.put("/notes/:id", validate(noteUpdatePayloadSchema), editNoteById);
+routes.put(
+    "/notes/:id",
+    validate(noteUpdatePayloadSchema),
+    editNoteById,
+);
 routes.delete("/notes/:id", deleteNoteById);

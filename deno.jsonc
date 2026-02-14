@@ -1,19 +1,24 @@
 {
     "tasks": {
         "dev": "deno run -A --watch src/server.ts",
-        "prod": "NODE_ENV=production deno run -A src/server.ts"
+        "prod": "NODE_ENV=production deno run -A src/server.ts",
+        "migrate:up": "deno run -A --env-file=.env npm:node-pg-migrate -m migrations up",
+        "migrate:create": "deno run -A --env-file=.env npm:node-pg-migrate -m migrations create"
     },
     "imports": {
+        // import path alias
+        "@/": "./src/",
+
         "@sitnik/nanoid": "jsr:@sitnik/nanoid@^5.1.5",
         "@std/assert": "jsr:@std/assert@1",
+        "@std/dotenv": "jsr:@std/dotenv@^0.225.6",
         "@std/fmt": "jsr:@std/fmt@^1.0.9",
         "@types/express": "npm:@types/express@^5.0.6",
         "cors": "npm:cors@^2.8.6",
         "express": "npm:express@^5.2.1",
         "joi": "npm:joi@^18.0.2",
-
-        // import path alias
-        "@/": "./src/"
+        "node-pg-migrate": "npm:node-pg-migrate@^8.0.4",
+        "pg": "npm:pg@^8.18.0"
     },
     "lint": {
         "include": ["*.ts"],
@@ -22,13 +27,16 @@
         }
     },
     "fmt": {
-        "include": ["src/**/*.ts", "./**/*.json", "./**/*.jsonc"],
-        "options": {
-            "indentWidth": 4,
-            "singleQuote": false,
-            "useTabs": false,
-            "lineWidth": 80,
-            "semiColons": true
-        }
+        "include": [
+            "src/**/*.ts",
+            "./**/*.json",
+            "./**/*.jsonc",
+            "migrations/**/*.js"
+        ],
+        "indentWidth": 4,
+        "singleQuote": false,
+        "useTabs": false,
+        "lineWidth": 80,
+        "semiColons": true
     }
 }

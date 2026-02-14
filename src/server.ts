@@ -1,11 +1,11 @@
 import server from "@/server/index.ts";
 import { blue, brightYellow } from "@std/fmt/colors";
 
-function init() {
-    const port = 3000;
-    const host = Deno.env.get("NODE_ENV") !== "production"
-        ? "localhost"
-        : "0.0.0.0";
+import "@std/dotenv/load";
+
+async function init() {
+    const port = Number(Deno.env.get("PORT"));
+    const host = Deno.env.get("HOST")!;
 
     server.listen(port, host, () => {
         console.log(
@@ -19,5 +19,5 @@ function init() {
 }
 
 if (import.meta.main) {
-    init();
+    await init();
 }

@@ -1,96 +1,85 @@
-import { nanoid } from "@sitnik/nanoid";
-import { type Note, notes } from "@/services/notes/notes.ts";
+import NoteRepositories from "@/services/notes/repositories/note-repositories.ts";
 import { NextFunction, Request, Response } from "express";
-import { NotFoundError } from "@/exceptions/index.ts";
+import { InvariantError, NotFoundError } from "@/exceptions/index.ts";
 import response from "@/utils/response.ts";
+import noteRepositories from "../repositories/note-repositories.ts";
 
-export function createNote(
+export async function createNote(
     req: Request,
     res: Response,
+    next: NextFunction,
 ) {
     const { title = "untitled", tags, body } = req.validatedBody;
-    const id = nanoid(16);
-
-    const createdAt = new Date().toISOString();
-    const updatedAt = createdAt;
-
-    const newNote: Note = { title, tags, body, id, createdAt, updatedAt };
-    notes.set(id, newNote);
-
-    return response(res, 201, "Catatan berhasil ditambahkan", { noteId: id });
-}
-
-export function getNotes(
-    req: Request,
-    res: Response,
-) {
-    const { title } = req.validatedQuery ?? {};
-
-    let result = [...notes.values()];
-
-    if (title) {
-        result = result.filter((n) => n.title === title);
-    }
-
-    return response(res, 200, "Catatan berhasil ditampilkan", {
-        notes: result,
+    const note = await NoteRepositories.createNote({
+        title,
+        body,
+        tags,
     });
+
+    if (!note) {
+        next(new InvariantError("Catatan gagal ditemukan"));
+    }
+
+    return response(res, 201, "Catatan berhasil ditambahkan", note);
 }
 
-export function getNoteById(
+export async function getNotes(
+    _req: Request,
+    res: Response,
+) {
+    const notes = await NoteRepositories.getNotes();
+    return response(res, 200, "Catatan berhasil ditampilkan", notes);
+}
+
+export async function getNoteById(
     req: Request,
     res: Response,
     next: NextFunction,
 ) {
     const { id } = req.params;
-    const note = notes.get(id as string);
+    const note = await NoteRepositories.getNotesById(id as string);
 
     if (!note) {
         return next(new NotFoundError("Catatan tidak ditemukan"));
-    } else {
-        return response(res, 200, "Catatan berhasil ditampilkan", {
-            note: note,
-        });
     }
+
+    return response(res, 200, "Catatan berhasil ditampilkan", note);
 }
 
-export function editNoteById(
-    req: Request,
+export async function editNoteById(
+    req: Request<any>,
     res: Response,
     next: NextFunction,
 ) {
     const { id } = req.params;
-    const note = notes.get(id as string);
-
     const { title, tags, body } = req.validatedBody;
+    const note = await noteRepositories.editNoteById({
+        id,
+        title,
+        body,
+        tags,
+    });
 
     if (!note) {
         return next(new NotFoundError("Catatan tidak ditemukan"));
-    } else {
-        note.title = title ?? note.title;
-        note.tags = tags ?? note.tags;
-        note.body = body ?? note.body;
-        note.updatedAt = new Date().toISOString();
-        return response(res, 200, "Catatan berhasil diperbarui", {
-            note: note,
-        });
     }
+
+    return response(res, 200, "Catatan berhasil diperbarui", note);
 }
 
-export function deleteNoteById(
-    req: Request,
+export async function deleteNoteById(
+    req: Request<any>,
     res: Response,
     next: NextFunction,
 ) {
     const { id } = req.params;
-    const note = notes.get(id as string);
+    const deletedNote = await noteRepositories.deleteNoteById(id);
 
-    if (!note) {
+    if (!deletedNote) {
         return next(
             new NotFoundError("Catatan tidak ditemukan"),
         );
     }
 
-    notes.delete(id as string);
     return response(res, 200, "Catatan berhasil dihapus");
 }
