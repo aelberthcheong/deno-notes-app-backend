@@ -3,7 +3,8 @@
         "dev": "deno run -A --watch src/server.ts",
         "prod": "NODE_ENV=production deno run -A src/server.ts",
         "migrate:up": "deno run -A --env-file=.env npm:node-pg-migrate -m migrations up",
-        "migrate:create": "deno run -A --env-file=.env npm:node-pg-migrate -m migrations create"
+        "migrate:create": "deno run -A --env-file=.env npm:node-pg-migrate -m migrations create",
+        "migrate:down": "deno run -A --env-file=.env npm:node-pg-migrate -m migrations down"
     },
     "imports": {
         // import path alias
