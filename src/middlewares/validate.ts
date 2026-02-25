@@ -24,7 +24,7 @@ export function validateQuery(schema: Joi.ObjectSchema) {
         });
 
         if (error) return next(error);
-        req.validatedQuery = value;
+        (req as any).validatedQuery = value;
         next();
     };
 }

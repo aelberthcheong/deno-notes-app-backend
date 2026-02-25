@@ -3,7 +3,7 @@ import { blue, brightYellow } from "@std/fmt/colors";
 
 import "@std/dotenv/load";
 
-async function init() {
+function init() {
     const port = Number(Deno.env.get("PORT"));
     const host = Deno.env.get("HOST")!;
 
@@ -19,5 +19,5 @@ async function init() {
 }
 
 if (import.meta.main) {
-    await init();
+    init();
 }

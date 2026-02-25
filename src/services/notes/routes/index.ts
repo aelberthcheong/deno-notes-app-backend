@@ -12,15 +12,27 @@ import {
     noteQuerySchema,
     noteUpdatePayloadSchema,
 } from "../validator/schema.ts";
+import authenticateToken from "../../../middlewares/auth.ts";
 
 export const routes = Router();
 
-routes.post("/notes", validate(notePayloadSchema), createNote);
-routes.get("/notes", validateQuery(noteQuerySchema), getNotes);
-routes.get("/notes/:id", getNoteById);
+routes.post(
+    "/notes",
+    authenticateToken,
+    validate(notePayloadSchema),
+    createNote,
+);
+routes.get(
+    "/notes",
+    authenticateToken,
+    validateQuery(noteQuerySchema),
+    getNotes,
+);
+routes.get("/notes/:id", authenticateToken, getNoteById);
 routes.put(
     "/notes/:id",
+    authenticateToken,
     validate(noteUpdatePayloadSchema),
     editNoteById,
 );
-routes.delete("/notes/:id", deleteNoteById);
+routes.delete("/notes/:id", authenticateToken, deleteNoteById);

@@ -15,16 +15,19 @@
         "@std/dotenv": "jsr:@std/dotenv@^0.225.6",
         "@std/fmt": "jsr:@std/fmt@^1.0.9",
         "@types/express": "npm:@types/express@^5.0.6",
+        "bcryptjs": "npm:bcryptjs@^3.0.3",
         "cors": "npm:cors@^2.8.6",
         "express": "npm:express@^5.2.1",
         "joi": "npm:joi@^18.0.2",
+        "jsonwebtoken": "npm:jsonwebtoken@^9.0.3",
         "node-pg-migrate": "npm:node-pg-migrate@^8.0.4",
         "pg": "npm:pg@^8.18.0"
     },
     "lint": {
-        "include": ["*.ts"],
+        "include": ["src/**/*.ts"],
         "rules": {
-            "tags": ["recommended"]
+            "tags": ["recommended"],
+            "exclude": ["no-explicit-any"]
         }
     },
     "fmt": {
